@@ -3,7 +3,9 @@ use fuse::*;
 use libc::{ENOENT, EACCES};
 use cfs;
 
-pub struct FS;
+pub struct FS {
+	pub context: cfs::context::Context
+}
 
 impl Filesystem for FS {
 	fn lookup(&mut self, _req: &Request, parent: u64, name: &OsStr, reply: ReplyEntry) {
@@ -46,7 +48,7 @@ impl Filesystem for FS {
 	}
 
 	fn create(&mut self, _req: &Request, _parent: u64, _name: &OsStr, _mode: u32, _flags: u32, reply: ReplyCreate) {
-		print!("create: {:?}\n", _name);
+		self.context.add_file(&_name.into_string());
 		reply.error(EACCES);
 	}
 }

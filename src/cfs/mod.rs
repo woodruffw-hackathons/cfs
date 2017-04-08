@@ -11,15 +11,13 @@ mod context;
 pub struct CFS {
 	mnt: String,
 	fs: fs::FS,
-	context: context::Context
 }
 
 impl CFS {
 	pub fn new(mnt: &str) -> CFS {
 		CFS {
 			mnt: mnt.to_string(),
-			fs: fs::FS,
-			context: context::Context::new()
+			fs: fs::FS { context: context::Context::new() },
 		}
 	}
 
