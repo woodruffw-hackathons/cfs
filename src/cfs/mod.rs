@@ -3,29 +3,28 @@ extern crate fuse;
 use time::Timespec;
 use fuse::*;
 use std::path::Path;
-use std::error::Error;
 
 mod fs;
 mod file;
 mod context;
 
-pub struct CFS<'a> {
+pub struct CFS {
 	mnt: String,
-	fs: &'a mut fs::FS,
+	fs: fs::FS,
 	context: context::Context
 }
 
 impl CFS {
-	pub fn new(&mut self, mnt: &str) -> CFS {
+	pub fn new(mnt: &str) -> CFS {
 		CFS {
 			mnt: mnt.to_string(),
-			fs: &mut fs::FS,
+			fs: fs::FS,
 			context: context::Context::new()
 		}
 	}
 
-	pub fn start(&mut self) {
-		fuse::mount(self.fs, &Path::new(self.mnt), &[]);
+	pub fn start(self) {
+		fuse::mount(self.fs, &Path::new(&self.mnt), &[]);
 		();
 	}
 }

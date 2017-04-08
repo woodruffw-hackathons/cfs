@@ -49,9 +49,4 @@ impl Filesystem for FS {
 		print!("create: {:?}\n", _name);
 		reply.error(EACCES);
 	}
-
-	// fn open(&mut self, _req: &Request, _ino: u64, _flags: u32, reply: ReplyOpen) {
-	// 	print!("open: {:?}\n", _ino);
-	// 	reply.error(EACCES);
-	// }
 }

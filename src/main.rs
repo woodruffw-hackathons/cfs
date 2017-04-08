@@ -5,8 +5,6 @@ extern crate libc;
 extern crate time;
 
 use std::env;
-use std::path;
-use cfs::*;
 
 fn main() {
 	let args: Vec<String> = env::args().collect();
